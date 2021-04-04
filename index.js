@@ -14,6 +14,8 @@ const Schema = mongoose.Schema;
 
 const Product = require('./models/product');
 
+const Image = require('./models/img');
+
 mongoose.connect('mongodb://localhost:27017/farmStand', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("MONGO CONNECTION OPEN!!!")
@@ -31,7 +33,7 @@ mongoose.connect('mongodb://localhost:27017/farmStand', { useNewUrlParser: true,
             next(err);
             return;
           }
-          var a = new Product;
+          var a = new Image;
 
           for (const file of Object.entries(files)) {
             a.img.data = fs.readFileSync(file[1].path);
@@ -48,10 +50,10 @@ mongoose.connect('mongodb://localhost:27017/farmStand', { useNewUrlParser: true,
         });
     })
 
- const a = '606a15074e75b1215cdac8cf'
+ const a = '606a1ae4ce83944a5817a85e'
 
 app.get('/mongo-image', function (req, res, next) {
-    Product.findById(a, function (err, doc) {
+    Image.findById(a, function (err, doc) {
       if (err) return next(err);
       res.contentType(doc.img.contentType);
       res.send(doc.img.data);
