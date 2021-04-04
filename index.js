@@ -4,8 +4,12 @@ const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override')
 const GridFS = require('gridfs');
+var fs = require('fs');
+var formidable = require('formidable');
 
 const Schema = mongoose.Schema;
+
+
 
 
 const Product = require('./models/product');
@@ -19,6 +23,40 @@ mongoose.connect('mongodb://localhost:27017/farmStand', { useNewUrlParser: true,
         console.log(err)
     })
    
+    app.post('/products', function (req, res){
+        const form = formidable({ multiples: true });
+
+        form.parse(req, (err, fields, files) => {
+          if (err) {
+            next(err);
+            return;
+          }
+          var a = new Product;
+
+          for (const file of Object.entries(files)) {
+            a.img.data = fs.readFileSync(file[1].path);
+            a.img.contentType = file[1].type;
+            a.save(function (err, a) {
+                if (err) throw err;
+      
+                console.error('saved img to mongo');
+             });
+          }
+
+
+          // res.json({ fields, files });
+        });
+    })
+
+ const a = '606a15074e75b1215cdac8cf'
+
+app.get('/mongo-image', function (req, res, next) {
+    Product.findById(a, function (err, doc) {
+      if (err) return next(err);
+      res.contentType(doc.img.contentType);
+      res.send(doc.img.data);
+    });
+  });
 
 
 app.set('views', path.join(__dirname, 'views'));
@@ -26,7 +64,10 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 
+
 const categories = ['fruit', 'vegetable', 'dairy', 'pastries'];
+
+
 
 app.get('/products', async (req, res)=> {
     const products = await Product.find({})
@@ -35,7 +76,6 @@ app.get('/products', async (req, res)=> {
 
 app.get('/products/new', (req, res) => {
     res.render('products/new', { categories })
-
 })
 
 app.post('/products', async (req, res) => {

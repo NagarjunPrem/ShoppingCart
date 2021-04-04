@@ -15,6 +15,13 @@
         <% }%>
       </ul>
       <a href="/products/new">New Product</a>
+      <form action="/products" enctype="multipart/form-data" method="post">
+        <input type="file" name="upload" multiple>
+        <input type="submit" value="Upload">
+    </form>
+    <h2>Image from MongoDB</h2>
+    <img src="/mongo-image" alt="image from mongodb" />
+    <i>Pic</i>   
     
 </body>
 

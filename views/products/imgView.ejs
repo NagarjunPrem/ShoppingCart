@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products</title>
+</head>
+
+<body>
+  <h1>Image View</h1>
+  <form action="/image_upload" enctype="multipart/form-data" method="post">
+    <input type="file" name="upload" multiple>
+    <input type="submit" value="Upload">
+</form>
+<h2>Image from MongoDB</h2>
+    <img src="/mongo-image" alt="image from mongodb" />    
+</body>
+
+</html>
