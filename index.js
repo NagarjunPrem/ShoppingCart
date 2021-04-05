@@ -27,7 +27,7 @@ mongoose.connect('mongodb://localhost:27017/farmStand', { useNewUrlParser: true,
         console.log(err)
     })
    
-    app.post('/products', function (req, res){
+    app.post('/uploadimg', function (req, res){
         const form = formidable({ multiples: true });
 
         form.parse(req, (err, fields, files) => {
@@ -52,7 +52,7 @@ mongoose.connect('mongodb://localhost:27017/farmStand', { useNewUrlParser: true,
         });
     })
 
- const a = '606a30a6f0edab37e076aa42'
+ const a = '606ae6ac4478fc25186a4051'
 
 app.get('/mongo-image', function (req, res, next) {
     Image.findById(a, function (err, doc) {

@@ -13,8 +13,8 @@
         <li>Price: $<%= product.price%></li>
         <li>Category: <%= product.category%></a></li>
     </ul>
-    <a href="/products">Back to All Products</a>
-    <a href="/products/<%=product._id%>/edit">Edit Products</a>
+    <a href="/products">Back to All Products</a><br></br>
+    <a href="/products/<%=product._id%>/edit">Edit Products</a><br></br>
     <form action="/products/<%=product._id%>?_method=DELETE" method="POST">
         <button>Delete</button>
     </form>
